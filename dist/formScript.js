@@ -20,7 +20,7 @@ const getInputVal = (id) => {
   return document.getElementById(id).value
 }
 
-// Fonction that save messages to firebas
+// Fonction that save messages to firebase
 const saveMessage = (username, email, password, message) => {
   const newMessageRef = messagesRef.push()
   newMessageRef.set({
@@ -31,13 +31,25 @@ const saveMessage = (username, email, password, message) => {
   })
 }
 
+// Submit form
 const submitForm = (event) => {
   event.preventDefault()
   const username = getInputVal('username')
   const email = getInputVal('email')
   const password = getInputVal('password')
   const message = getInputVal('message')
+
   saveMessage(username, email, password, message)
+
+  // Submission confirmation
+  document.querySelector('.alert').style.display = 'block'
+
+  setTimeout(() => {
+    document.querySelector('.alert').style.display = 'none'
+  }, 3000)
+
+  // Reset form inputs
+  document.getElementById('form').reset()
 }
 
 form.addEventListener('submit', submitForm)
